@@ -1,0 +1,348 @@
+\documentclass[12pt]{article} 
+
+\usepackage{fullpage}
+\usepackage{bookmark}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref} % for the URL
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[amsmath,standard,thmmarks]{ntheorem} 
+\usepackage{physics}
+\usepackage{pst-tree} % for the trees
+\usepackage{verbatim} % for comments, for version control
+\usepackage{tabu}
+\usepackage{tikz}
+\usepackage{float}
+
+\lstnewenvironment{python}{
+\lstset{frame=tb,
+language=Python,
+aboveskip=3mm,
+belowskip=3mm,
+showstringspaces=false,
+columns=flexible,
+basicstyle={\small\ttfamily},
+numbers=none,
+numberstyle=\tiny\color{Green},
+keywordstyle=\color{Violet},
+commentstyle=\color{Gray},
+stringstyle=\color{Brown},
+breaklines=true,
+breakatwhitespace=true,
+tabsize=2}
+}
+{}
+
+\lstnewenvironment{latex}{
+\lstset{
+backgroundcolor=\color{white!90!NavyBlue},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+basicstyle={\scriptsize\ttfamily},        % the size of the fonts that are used for the code
+breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+breaklines=true,                 % sets automatic line breaking
+captionpos=b,                    % sets the caption-position to bottom
+commentstyle=\color{Gray},    % comment style
+deletekeywords={...},            % if you want to delete keywords from the given language
+escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+% firstnumber=1000,                % start line enumeration with line 1000
+frame=single,	                   % adds a frame around the code
+keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{Violet},       % keyword style
+language=[latex]tex,                 % the language of the code
+morekeywords={*,...},            % if you want to add more keywords to the set
+% numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+% numbersep=5pt,                   % how far the line-numbers are from the code
+% numberstyle=\tiny\color{Green}, % the style that is used for the line-numbers
+rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false,          % underline spaces within strings only
+showtabs=false,                  % show tabs within strings adding particular underscores
+stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{Brown},     % string literal style
+tabsize=2,	                   % sets default tabsize to 2 spaces
+title=\lstname}                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+{}
+
+% floor, ceiling, set
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\iprod}{\langle}{\rangle}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\mean}{mean}
+
+% commonly used sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\sset}{\subseteq}
+
+\theoremstyle{break}
+\theorembodyfont{\upshape}
+
+\newtheorem{thm}{Theorem}[subsection]
+\tcolorboxenvironment{thm}{
+enhanced jigsaw,
+colframe=Dandelion,
+colback=White!90!Dandelion,
+drop fuzzy shadow east,
+rightrule=2mm,
+sharp corners,
+before skip=10pt,after skip=10pt
+}
+
+\newtheorem{cor}{Corollary}[thm]
+\tcolorboxenvironment{cor}{
+boxrule=0pt,
+boxsep=0pt,
+colback={White!90!RoyalPurple},
+enhanced jigsaw,
+borderline west={2pt}{0pt}{RoyalPurple},
+sharp corners,
+before skip=10pt,
+after skip=10pt,
+breakable
+}
+
+\newtheorem{lem}[thm]{Lemma}
+\tcolorboxenvironment{lem}{
+enhanced jigsaw,
+colframe=Red,
+colback={White!95!Red},
+rightrule=2mm,
+sharp corners,
+before skip=10pt,after skip=10pt
+}
+
+\newtheorem{ex}[thm]{Example}
+\tcolorboxenvironment{ex}{% from ntheorem
+blanker,left=5mm,
+sharp corners,
+before skip=10pt,after skip=10pt,
+borderline west={2pt}{0pt}{Gray}
+}
+
+\newtheorem*{pf}{Proof}
+\tcolorboxenvironment{pf}{% from ntheorem
+breakable,blanker,left=5mm,
+sharp corners,
+before skip=10pt,after skip=10pt,
+borderline west={2pt}{0pt}{NavyBlue!80!white}
+}
+
+\newtheorem{defn}{Definition}[subsection]
+\tcolorboxenvironment{defn}{
+enhanced jigsaw,
+colframe=Cerulean,
+colback=White!90!Cerulean,
+drop fuzzy shadow east,
+rightrule=2mm,
+sharp corners,
+before skip=10pt,after skip=10pt
+}
+
+\newtheorem{prop}[thm]{Proposition}
+\tcolorboxenvironment{prop}{
+boxrule=0pt,
+boxsep=0pt,
+colback={White!90!Green},
+enhanced jigsaw,
+borderline west={2pt}{0pt}{Green},
+sharp corners,
+before skip=10pt,
+after skip=10pt,
+breakable
+}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{2pt}
+
+
+\begin{document}
+\let\ref\Cref
+
+\title{\bf{A Tiktz Tutorial}}
+\date{\today}
+\author{Felix Zhou}
+
+\maketitle
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+\section*{Introduction}
+\subsection*{What it this?}
+I am an upcoming third year (3A) student at the University of Waterloo who plans to take CO342 - Introduction to Graph Theory, in Fall 2019.
+To aid me and other students such as myself with typesetting graphs using tikz, I created this shortened tutorial from the TikZ and PGF Manual.
+Please do not hesitate to reach out to me if there are any errors and I will publish an updated version ASAP.
+
+\subsection*{Goal}
+I have always believed in understanding your tools completely before using them.
+In addition to my tutorial on TikZ, I will include as much notes on the math behind non-trivial TikZ commands as I can, with the condition that I myself at least understand the gist of the technologies.
+If it is completey above me and looks like gobly goop, I will clearly note this and invite \textit{you} to write me a short section based on your understanding.
+
+
+\newpage
+\section{Generic Setup}
+\begin{latex}
+    \documentclass{article}
+    \usepackage{tikz}
+    \usepackage{float}
+
+    \begin{document}
+    \begin{figure}[H] % forces position of tikz to be where it is in source file
+        \centering
+
+        \begin{tikzpicture}
+            % insert provided code
+        \end{tikzpicture}
+
+        \caption{A Caption}
+        \label{fig:alabel}
+    \end{figure}
+    \end{document}
+\end{latex}
+
+This is our default setup for any document classes involving TikZ.
+If additional imports are necessary, we will explicityly note them.
+
+Note that we may ommit typing ``tikzpicture'' everytime and inline simple TikZ pictures with the ``tikz'' command.
+When we do this, we will explicitly type out ``tikz``.
+
+
+\newpage
+\section{Paths}
+
+\subsection{Straight Paths}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (-1.5,0) -- (1.5,0);
+        \draw (0,-1.5) -- (0,1.5);
+    \end{tikzpicture}.
+    \caption{Basic Straight Path}
+    \label{fig:basicstraightpath}
+\end{figure}
+
+\begin{latex}
+    \draw (-1.5,0) -- (1.5,0); % draw straight lines between two points
+    \draw (0,-1.5) -- (0,1.5);
+\end{latex}
+
+We can also directly inline a similar picture
+\begin{figure}[H]
+    \centering
+    \tikz \draw (-1.5,0) -- (1.5,0) -- (0,-1.5) -- (0,1.5);
+    \caption{Inlined Straight Path}
+    \label{fig:inlinedstraightpath}
+\end{figure}
+
+\begin{latex}
+    \tikz \draw (-1.5,0) -- (1.5,0) -- (0,-1.5) -- (0,1.5);
+\end{latex}
+
+\subsection{Curved Paths}
+TikZ allows us to define arbitrary curves using control points.
+The basis behind of this concept are B\'ezier Curves, which in turn are based on the Bernstein Polynomial.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \filldraw [gray]
+        (0,0) circle (2pt)
+        (1,1) circle (2pt)
+        (3,3) circle (2pt)
+        (3,0) circle (2pt);
+        \draw (0,0) .. controls (1,1) and (3,3) .. (3,0);
+    \end{tikzpicture}
+    \caption{Basic Curve}
+    \label{fig:basiccurve}
+\end{figure}
+
+\begin{latex}
+    \filldraw [gray]
+    (0,0) circle (2pt)
+    (1,1) circle (2pt)
+    (3,3) circle (2pt)
+    (3,0) circle (2pt);
+    \draw (0,0) .. controls (1,1) and (3,3) .. (3,0);
+\end{latex}
+
+The above shows a basic curve where the control points are explicitly drawn as well.
+Obviously, this would be ommited (on your graph theory course home work for example).
+
+\subsubsection{Bezier Curves and the Bernstein Polynomial}
+This section gives some mathematical background on curved paths and is skippable.
+
+\begin{defn}[B\'ezier Curve]
+   A recursive definition for the B\'ezier curve of degree $n$ expresses it as a point-to-point linear combination (interpolation) of a pair of corresponding points in two B\'ezier curves of degree $n-1$.
+
+   \begin{align*}
+       B &: \R \to \R \\
+       B_{P_0}(t) &= P_0 &&\text{base case} \\
+       B(t) &= B_{P_0P_1\dots P_n}(t) = (1-t)B_{P_0P_1\dots P_{n-1}}(t) + tB_{P_1P_2\dots P_n}(t)
+   \end{align*}
+\end{defn}
+
+\begin{defn}[Bernstein Basis Polynomials]
+    of degree $n$ are given by
+    \[
+    \set*{b_{i, n}(t) = \binom{n}{i} t^i (1-t)^{n-i} : 0\leq i\leq n}
+    \]
+
+    which form a basis of polynomials with degree at most $n$.
+\end{defn}
+
+\begin{prop}
+    \[
+    B(t) = \sum_{i=0}^n \binom{n}{i} t^i(1-t)^{n-i} P_i
+    \]
+
+    So we can express a B\'ezier curve as a linear combination of the Berstein Basis.
+\end{prop}
+
+The points $P_i$ are called \textit{Control Points} for the B\'ezier Curve.
+The polygon formed by connecting the B\'ezier points with lines, starting with $P_0$ and finishing with $P_n$, gives the \textit{B\'ezier Polygon (Control Polygon)}.
+The convex hull of the B\'ezier Polygon contains the B\'ezier Curve.
+
+\subsection{Circular Paths}
+Although it would certainly be possible to draw all our circular paths with control points, it would prove tedious to say the least.
+
+\begin{figure}[H]
+    \centering
+    \tikz \draw (0,0) circle (30pt);
+    \caption{Basic Circle}
+    \label{fig:basiccircle}
+\end{figure}
+
+\begin{latex}
+    \tikz \draw (0,0) circle (30pt);
+\end{latex}
+
+We can also draw Ellipses.
+
+\begin{figure}[H]
+    \centering
+    \tikz \draw (0,0) ellipse (20pt and 10pt);
+    \caption{Basic Ellipse}
+    \label{fig:basicellipse}
+\end{figure}
+
+\begin{latex}
+    \tikz \draw (0,0) ellipse (20pt and 10pt);
+\end{latex}
+
+Although it is possible to draw ellipses which are rotated in arbitrary directions, we will leave this for the section on transformations later on.
+
+\end{document}
+
+
