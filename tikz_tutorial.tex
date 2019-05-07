@@ -553,6 +553,170 @@ Note that we can indicate the kind of array head desired using the ``$>$'' optio
 
 
 \newpage
+\section{Graphs}
+This is definitely my favourite part of TikZ.
+
+\subsection{Nodes}
+\begin{figure}[H]
+    \centering
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick]
+    \begin{tikzpicture}
+        \node at ( 0,2) [place] {};
+        \node at ( 0,1) [place] {};
+        \node at ( 0,0) [place] {};
+        \node at ( 1,1) [transition] {};
+        \node at (-1,1) [transition] {};
+    \end{tikzpicture}
+    \caption{Basic Nodes}
+    \label{fig:basicnodes}
+\end{figure}
+
+\begin{latex}
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick]
+    \begin{tikzpicture}
+        \node at ( 0,2) [place] {};
+        \node at ( 0,1) [place] {};
+        \node at ( 0,0) [place] {};
+        \node at ( 1,1) [transition] {};
+        \node at (-1,1) [transition] {};
+    \end{tikzpicture}
+\end{latex}
+
+\subsection{Node Sizes}
+By default, nodes have non-zero sizes as TikZ has default non-zero inner sep between text and node boundaries.
+We set this to 0 and instead use the minimum size command which allows the nodes to shrink to a minimum size when there is no text and expand as needed.
+
+\begin{figure}[H]
+    \centering
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0,minimum size=0.5cm]
+    \begin{tikzpicture}
+        \node at ( 0,2) [place] {};
+        \node at ( 0,1) [place] {};
+        \node at ( 0,0) [place] {};
+        \node at ( 1,1) [transition] {};
+        \node at (-1,1) [transition] {};
+    \end{tikzpicture}
+    \caption{Basic Sized Nodes}
+    \label{fig:basicsizednodes}
+\end{figure}
+
+\begin{latex}
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0,minimum size=0.5cm]
+    \begin{tikzpicture}
+        \node at ( 0,2) [place] {};
+        \node at ( 0,1) [place] {};
+        \node at ( 0,0) [place] {};
+        \node at ( 1,1) [transition] {};
+        \node at (-1,1) [transition] {};
+    \end{tikzpicture}
+\end{latex}
+
+\subsection{Relative Positioning}
+First we name the nodes, then describe their position relative to one another, the value node distance is important in our case.
+
+\begin{figure}[H]
+    \centering
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0,minimum size=0.5cm]
+    \begin{tikzpicture}[node distance=2cm]
+        \node[place] (waiting) {};
+        \node[place] (critical) [below left of=waiting] {};
+        \node[place] (semaphore) [below left of=critical] {};
+        \node[transition] (leave critical) [below right of=critical] {};
+        \node[transition] (enter critical) [left of=critical] {};
+    \end{tikzpicture}
+    \caption{Relative Named Nodes}
+    \label{fig:relativenamednodes}
+\end{figure}
+
+\begin{latex}
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0,minimum size=0.5cm]
+    \begin{tikzpicture}[node distance=2cm]
+        \node[place] (waiting) {};
+        \node[place] (critical) [below left of=waiting] {};
+        \node[place] (semaphore) [below left of=critical] {};
+        \node[transition] (leave critical) [below right of=critical] {};
+        \node[transition] (enter critical) [left of=critical] {};
+    \end{tikzpicture}
+\end{latex}
+
+\subsection{Labels}
+We can always explicitly define blank nodes as labels but the label option is much better suited to our needs.
+
+\begin{figure}[H]
+    \centering
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \begin{tikzpicture}[node distance=2cm]
+        \node[place] (waiting) [label=above:$3\cdot 23$] {$69$};
+        \node[place] (critical) [below left of=waiting] {};
+        \node[place] (semaphore) [below left of=critical,label=below left:$2^{10}$] {$1024$};
+        \node[transition] (leave critical) [below right of=critical] {};
+        \node[transition] (enter critical) [left of=critical,label=left:prime!] {$13$};
+    \end{tikzpicture}
+    \caption{Basic Labeled Nodes}
+    \label{fig:basiclabelednodes}
+\end{figure}
+
+\begin{latex}
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \begin{tikzpicture}[node distance=2cm]
+        \node[place] (waiting) [label=above:$3\cdot 23$] {$69$};
+        \node[place] (critical) [below left of=waiting] {};
+        \node[place] (semaphore) [below left of=critical,label=below left:$2^{10}$] {$1024$};
+        \node[transition] (leave critical) [below right of=critical] {};
+        \node[transition] (enter critical) [left of=critical,label=left:prime!] {$13$};
+    \end{tikzpicture}
+\end{latex}
+
+\subsection{Connecting Nodes}
+Here comes the fun part!
+
+\begin{figure}[H]
+    \centering
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \begin{tikzpicture}[node distance=2cm]
+        \node[place] (waiting) [label=above:$3\cdot 23$] {$69$};
+        \node[place] (critical) [below left of=waiting] {};
+        \node[place] (semaphore) [below left of=critical,label=below left:$2^{10}$] {$1024$};
+        \node[transition] (leave critical) [below right of=critical] {};
+        \node[transition] (enter critical) [left of=critical,label=left:prime!] {$13$};
+        \draw[->] (enter critical) -- (critical.west);
+        \draw[->] (waiting) .. controls +(-5, 1) and +(-5, -1) .. (semaphore.west);
+        \draw[<-] (waiting) to [out=270,in=0] (critical);
+        \draw[<->] (critical) to [bend right=90] (leave critical);
+    \end{tikzpicture}
+    \caption{Basic Connected Nodes}
+    \label{fig:basicconnectednodes}
+\end{figure}
+
+\begin{latex}
+    \tikzstyle{place}=[circle,draw=blue!50,fill=blue!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \tikzstyle{transition}=[rectangle,draw=black!50,fill=black!20,thick,inner sep=0.1cm,minimum size=0.5cm]
+    \begin{tikzpicture}[node distance=2cm]
+        \node[place] (waiting) [label=above:$3\cdot 23$] {$69$};
+        \node[place] (critical) [below left of=waiting] {};
+        \node[place] (semaphore) [below left of=critical,label=below left:$2^{10}$] {$1024$};
+        \node[transition] (leave critical) [below right of=critical] {};
+        \node[transition] (enter critical) [left of=critical,label=left:prime!] {$13$};
+        \draw[->] (enter critical) -- (critical.west);
+        \draw[->] (waiting) .. controls +(-5, 1) and +(-5, -1) .. (semaphore.west);
+        \draw[<-] (waiting) to [out=270,in=0] (critical);
+        \draw[<->] (critical) to [bend right=90] (leave critical);
+    \end{tikzpicture}
+\end{latex}
+
+Here we showcase three of the many ways to connect nodes: through explicit paths, through indicating exit points, and through the bend command.
+
+
+\newpage
 \section{Options}
 \subsection{Styles}
 We now go on a slight detour.
@@ -713,6 +877,42 @@ This can be accomplished with scopes
             \draw (0.5, -1) -- (0.5, 1);
         \end{scope}
     \end{tikzpicture}
+\end{latex}
+
+\subsection{Transformations}
+One powerful mechanism of TikZ are transformations
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \filldraw[fill=Red] (0, 0) rectangle (1, 1);
+        \draw[xshift=1cm,yshift=-1cm] (0, 0) rectangle (1, 1); 
+        \filldraw[fill=Violet,rotate=45] (0.5, 0.5) rectangle (1, 1);
+    \end{tikzpicture}
+    \caption{Basic Transformations}
+    \label{fig:basictransformations}
+\end{figure}
+
+\begin{latex}
+    \filldraw[fill=Red] (0, 0) rectangle (1, 1);
+    \draw[xshift=1cm,yshift=-1cm] (0, 0) rectangle (1, 1); 
+    \filldraw[fill=Violet,rotate=45] (0.5, 0.5) rectangle (1, 1);
+\end{latex}
+
+\subsection{For Loops}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \foreach \x in {1, 1.25, 1.5, 1.75, 2}
+            \draw (\x, 0) circle (\x);
+    \end{tikzpicture}
+    \caption{Basic Repetitions}
+    \label{fig:basicrepetitions}
+\end{figure}
+
+\begin{latex}
+    \foreach \x in {1, 1.25, 1.5, 1.75, 2}
+        \draw (\x, 0) circle (\x);    
 \end{latex}
 
 
