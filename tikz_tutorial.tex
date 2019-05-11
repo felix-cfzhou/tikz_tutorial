@@ -944,6 +944,30 @@ One powerful mechanism of TikZ are transformations
         \draw (\x, 0) circle (\x);    
 \end{latex}
 
+\subsection{Layers}
+What if we wish to populate the background after drawing some nodes of shapes?
+
+\begin{figure}[H]
+    \centering
+    \pgfdeclarelayer{background}
+    \pgfsetlayers{background,main}
+    \tikzstyle{basic}=[draw,fill=Violet!20]
+    \begin{tikzpicture}
+        \node[basic] (N) at (0, 1) {N};
+        \node[basic] (S) at (0, -1) {S};
+        \node[basic] (E) at (1, 0) {E};
+        \node[basic] (W) at (-1, 0) {W};
+
+        \begin{pgfonlayer}{background}
+            \filldraw[fill=black!30,draw=red]
+                (S.south -| W.west) rectangle
+                (N.north -| E.east);
+        \end{pgfonlayer}
+    \end{tikzpicture}
+    \caption{Basic Background Layer}
+    \label{fig:basicbackgroundlayer}
+\end{figure}
+
 
 \end{document}
 
