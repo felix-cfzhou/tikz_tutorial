@@ -17,6 +17,8 @@
 \usepackage{tikz}
 \usepackage{float}
 
+\usetikzlibrary{decorations.pathmorphing}
+
 \lstnewenvironment{python}{
 \lstset{frame=tb,
 language=Python,
@@ -714,6 +716,33 @@ Here comes the fun part!
 \end{latex}
 
 Here we showcase three of the many ways to connect nodes: through explicit paths, through indicating exit points, and through the bend command.
+
+\subsection{Snake Edges}
+\begin{figure}[H]
+    \centering
+    \tikz \draw[->,decorate,decoration={snake}] (0, 0) -- (10, 0);
+    \caption{Basic Snake Edge}
+    \label{fig:basicsnakeedge}
+\end{figure}
+
+\begin{latex}
+    \usetikzlibrary{decorations.pathmorphing}
+    \tikz \draw[->,decorate,decoration={snake}] (0, 0) -- (10, 0);
+\end{latex}
+
+We can control the behavior of the edge like below
+
+\begin{figure}[H]
+    \centering
+    \tikz \draw[->,decorate,decoration={snake,amplitude=.4mm,segment length=2mm}] (0, 0) -- (10, 0);
+    \caption{Adjusted Snake Edge}
+    \label{fig:adjustedsnakeedge}
+\end{figure}
+
+\begin{latex}
+    \usetikzlibrary{decorations.pathmorphing}
+    \tikz \draw[->,decorate,decoration={snake,amplitude=.4mm,segment length=2mm}] (0, 0) -- (10, 0);
+\end{latex}
 
 
 \newpage
